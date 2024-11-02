@@ -5,6 +5,7 @@
 ;; lista : Lista donde buscar el elemento
 ;; elemento : Elemento a buscar
 ;; retorna : Índice del elemento en la lista o -1 si no está presente
+;;
 
 (define (buscador lista elemento)
   (define (aux lista elemento idx)
