@@ -5,7 +5,7 @@
 ;; n : Número de términos
 ;; x : Valor en el que evaluar la serie
 ;; retorna : Aproximación del seno de x usando n términos
-
+;;
 (define (taylorSenoSimple n x)
   (if (= n 0)
       x

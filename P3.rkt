@@ -1,22 +1,39 @@
 #lang scheme
 
-;; Evalúa una lista de funciones en orden rotacional sobre una lista de números
+;; Función: rotate
+;; Descripción: Rota una lista pasando el primer elemento al final.
+;; Parámetros:
+;;   - lst: Lista a rotar.
 ;;
-;; funciones : Lista de funciones lambda
-;; numeros : Lista de números a evaluar
-;; retorna : Lista de resultados
+(define (rotate lst)
+  (if (null? lst)           
+      '()                   
+      (append (cdr lst)    
+              (list (car lst))))) 
 
-(define (evaluador funciones numeros)
-  (define (rotate lst)
-    (if (null? (cdr lst))
-        lst
-        (append (cdr lst) (list (car lst)))))
-  (define (apply-funcs funcs num)
-    (if (null? funcs)
-        num
-        ((car funcs) (apply-funcs (cdr funcs) num))))
-  (if (null? numeros)
-      '()
-      (cons (apply-funcs funciones (car numeros))
-            (evaluador (rotate funciones) (cdr numeros)))))
+;; Función: apply-funcs
+;; Descripción: Aplica recursivamente una lista de funciones a un valor inicial.
+;; Parámetros:
+;;   - funcs: Lista de funciones a aplicar.
+;;   - value: Valor inicial sobre el cual aplicar las funciones.
+(define (apply-funcs funcs value)
+  (if (null? funcs)       
+      value                
+      (apply-funcs (cdr funcs) ((car funcs) value)))) 
 
+;; Función: evaluador
+;; Descripción: Evalúa una lista de funciones sobre una lista de números aplicando rotaciones.
+;; Parámetros:
+;;   - funcs: Lista de funciones lambda.
+;;   - nums: Lista de números a evaluar.
+(define (evaluador funcs nums)
+  (define (rotate-n f n)  
+    (if (= n 0)
+        f
+        (rotate-n (rotate f) (- n 1))))
+  (define (eval-loop f n remaining-nums)
+    (if (null? remaining-nums)
+        '()
+        (cons (apply-funcs (rotate-n f n) (car remaining-nums))  
+              (eval-loop f (+ n 1) (cdr remaining-nums))))) 
+  (eval-loop funcs 0 nums)) 
