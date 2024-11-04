@@ -20,7 +20,7 @@
 ;; x : Valor en el que evaluar la serie
 ;; acum : Acumulador para el resultado final
 ;; retorna : Aproximación del coseno de x usando n términos
-
+;;
 (define (taylorCosenoCola n x)
   (define (aux n x acum)
     (if (< n 0)

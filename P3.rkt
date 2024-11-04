@@ -16,6 +16,7 @@
 ;; Parámetros:
 ;;   - funcs: Lista de funciones a aplicar.
 ;;   - value: Valor inicial sobre el cual aplicar las funciones.
+;;
 (define (apply-funcs funcs value)
   (if (null? funcs)       
       value                
@@ -26,6 +27,7 @@
 ;; Parámetros:
 ;;   - funcs: Lista de funciones lambda.
 ;;   - nums: Lista de números a evaluar.
+;;
 (define (evaluador funcs nums)
   (define (rotate-n f n)  
     (if (= n 0)
